@@ -1,0 +1,26 @@
+{
+  "name": "examenredes",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000E\u0000x\u0000a\u0000m\u0000e\u0000n\u0000R\u0000e\u0000d\u0000e\u0000s\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "env-var": "^7.5.0",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.3",
+    "sequelize": "^6.37.4",
+    "sequelize-typescript": "^2.1.6",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5"
+  }
+}
