@@ -4,11 +4,11 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile # Asegúrate de que este archivo existe
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000" # Mapea el puerto 3000 del contenedor al puerto 3000 de tu máquina
+      - "3000:3000"
     environment:
-      DB_HOST: db # Nombre del servicio de la base de datos
+      DB_HOST: db
       DB_USER: mariguapo
       DB_PASSWORD: 123456789
       DB_NAME: examenservidores
@@ -16,14 +16,14 @@ services:
   db:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: 123456789 # Contraseña del root de MySQL
-      MYSQL_DATABASE: examenservidores # Nombre de la base de datos que se creará
-      MYSQL_USER: mariguapo # Nombre del usuario
-      MYSQL_PASSWORD: 123456789 # Contraseña del usuario
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: examenservidores 
+      MYSQL_USER: mariguapo
+      MYSQL_PASSWORD: 123456789
     ports:
-      - "3306:3306" # Mapea el puerto 3306 del contenedor al puerto 3306 de tu máquina
+      - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql # Persistencia de datos
+      - db_data:/var/lib/mysql
 
 volumes:
-  db_data: # Volumen para persistencia de datos de la base de datos
+  db_data:
