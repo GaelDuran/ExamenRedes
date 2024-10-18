@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Sequelize } from 'sequelize';
-import { Todo } from '../src/db/models/user.models';
+import { Todo } from './db/models/user.models';
 
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASSWORD!, {
   host: process.env.DB_HOST,
