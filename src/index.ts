@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Sequelize } from 'sequelize';
+import { Todo } from './db/models/user.models';
 
 // Crea la conexión a la base de datos usando las variables de entorno
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASSWORD!, {
@@ -20,13 +21,31 @@ sequelize.authenticate()
   });
 
 app.get("/", async (req: Request, res: Response) => {
-  res.send("Hello World!");
+  try {
+    const todos = await
+    Todo.findAll();
+    res.json( todos );
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener tareas" });
+  }
+  
 });
 
 app.post("/", async (req: Request, res: Response) => {
-  const body = req.body;
-  console.log(body);
-  res.json({ message: "Body leído" });
+  const { id, Tarea, Descripcion, Completado } = req.body;
+  try {
+    const newTodo = await 
+    Todo.create({
+      id,
+      Tarea,
+      Descripcion,
+      Completado,
+    });
+    res.status(201).json(newTodo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al crear tarea" });
+  }
 });
 
 app.listen(3000, () => {

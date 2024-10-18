@@ -1,25 +1,29 @@
+version: '3.8'
+
 services:
-  # docker-getting-started:
-  #   image: docker/getting-started
-  #   container_name: PruebaDocker
-  #   ports:
-  #     - "8080:80"
-  wordpress:
-    image: wordpress
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile # Asegúrate de que este archivo existe
     ports:
-      - "3000:3000"
+      - "3000:3000" # Mapea el puerto 3000 del contenedor al puerto 3000 de tu máquina
     environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: mariguapo
-      WORDPRESS_DB_PASSWORD: 123456789
-      WORDPRESS_DB_NAME: wordpressdb
-  
+      DB_HOST: db # Nombre del servicio de la base de datos
+      DB_USER: mariguapo
+      DB_PASSWORD: 123456789
+      DB_NAME: examenservidores
+
   db:
-    image: mysql
+    image: mysql:latest
     environment:
-      MYSQL_USER: mariguapo
-      MYSQL_PASSWORD: 123456789
-      MYSQL_DATABASE: wordpressdb
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_ROOT_PASSWORD: 123456789 # Contraseña del root de MySQL
+      MYSQL_DATABASE: examenservidores # Nombre de la base de datos que se creará
+      MYSQL_USER: mariguapo # Nombre del usuario
+      MYSQL_PASSWORD: 123456789 # Contraseña del usuario
     ports:
-      - "3306:3306"
+      - "3306:3306" # Mapea el puerto 3306 del contenedor al puerto 3306 de tu máquina
+    volumes:
+      - db_data:/var/lib/mysql # Persistencia de datos
+
+volumes:
+  db_data: # Volumen para persistencia de datos de la base de datos
