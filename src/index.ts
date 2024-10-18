@@ -46,6 +46,6 @@ app.post("/todos", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(3306, () => {
+app.listen(3000, () => {
   console.log("Aplicación corriendo en el puerto 3000");
 });

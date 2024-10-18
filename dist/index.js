@@ -53,6 +53,6 @@ app.post("/todos", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({ error: "Error al crear tarea" });
     }
 }));
-app.listen(3306, () => {
+app.listen(3000, () => {
     console.log("Aplicación corriendo en el puerto 3000");
 });
