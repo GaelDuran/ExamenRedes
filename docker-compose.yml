@@ -1,32 +1,25 @@
-version: '3.8'
-
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  # docker-getting-started:
+  #   image: docker/getting-started
+  #   container_name: PruebaDocker
+  #   ports:
+  #     - "8080:80"
+  wordpress:
+    image: wordpress
     ports:
       - "3000:3000"
     environment:
-      - PORT=3000
-    depends_on:
-      - db
-    networks:
-      - app-network
-
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: mariguapo
+      WORDPRESS_DB_PASSWORD: 123456789
+      WORDPRESS_DB_NAME: wordpressdb
+  
   db:
-    image: mysql:5.7
-    restart: always
+    image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DB}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: mariguapo
+      MYSQL_PASSWORD: 123456789
+      MYSQL_DATABASE: wordpressdb
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
     ports:
       - "3306:3306"
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
