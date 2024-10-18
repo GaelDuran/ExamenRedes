@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const sequelize_1 = require("sequelize");
+const user_models_1 = require("./src/db/models/user.models");
 // Crea la conexión a la base de datos usando las variables de entorno
 const sequelize = new sequelize_1.Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
@@ -30,12 +31,29 @@ sequelize.authenticate()
     console.error('No se pudo conectar a la base de datos:', err);
 });
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("Hello World!");
+    try {
+        const todos = yield user_models_1.Todo.findAll();
+        res.json(todos);
+    }
+    catch (error) {
+        res.status(500).json({ error: "Error al obtener tareas" });
+    }
 }));
 app.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    console.log(body);
-    res.json({ message: "Body leído" });
+    const { id, Tarea, Descripcion, Completado } = req.body;
+    try {
+        const newTodo = yield user_models_1.Todo.create({
+            id,
+            Tarea,
+            Descripcion,
+            Completado,
+        });
+        res.status(201).json(newTodo);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al crear tarea" });
+    }
 }));
 app.listen(3000, () => {
     console.log("Aplicación corriendo en el puerto 3000");
