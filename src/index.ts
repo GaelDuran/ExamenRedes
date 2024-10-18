@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import { Sequelize } from 'sequelize';
 import { Todo } from './db/models/user.models';
 
-// Crea la conexión a la base de datos usando las variables de entorno
 const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PASSWORD!, {
   host: process.env.DB_HOST,
   dialect: 'mysql',
@@ -11,7 +10,6 @@ const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, proc
 const app = express();
 app.use(express.json());
 
-// Verifica la conexión a la base de datos
 sequelize.authenticate()
   .then(() => {
     console.log('Conexión a la base de datos establecida con éxito.');
@@ -20,7 +18,7 @@ sequelize.authenticate()
     console.error('No se pudo conectar a la base de datos:', err);
   });
 
-app.get("/", async (req: Request, res: Response) => {
+app.get("/todos", async (req: Request, res: Response) => {
   try {
     const todos = await
     Todo.findAll();
@@ -31,7 +29,7 @@ app.get("/", async (req: Request, res: Response) => {
   
 });
 
-app.post("/", async (req: Request, res: Response) => {
+app.post("/todos", async (req: Request, res: Response) => {
   const { id, Tarea, Descripcion, Completado } = req.body;
   try {
     const newTodo = await 
@@ -48,6 +46,6 @@ app.post("/", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(3306, () => {
   console.log("Aplicación corriendo en el puerto 3000");
 });
